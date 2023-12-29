@@ -39,6 +39,8 @@ const closeBtn = document.getElementById('close_btn')
 const backdrop = document.querySelector('.backdrop')
 const itemsEl = document.querySelector('.items')
 const cartItems = document.querySelector('.cart_items')
+const itemsNum = document.getElementById('items_num')
+const subtotalPrice = document.getElementById('subtotal_price')
 
 let cart_data = []
 
@@ -116,9 +118,22 @@ function decreaseQty(itemId) {
 }
 
 
+// Calculate Items Number 
+function calcItemsNum() {
+    let itemsCount = 0
+
+    cart_data.forEach((item) => (itemsCount +=item.qty))
+    itemsNum.innerText = itemsCount
+}
 
 
+// Calculate Subtotal Price
+function calcSubtotalPrice() {
+    let subtotal = 0
 
+    cart_data.forEach(item => subtotal+=item.price * item.qty)
+    subtotalPrice.innerText = subtotal
+}
 
 
 
@@ -171,8 +186,14 @@ function renderCartItems() {
 }
 
 function updateCart() {
-    // rerender cart items with updated data
+// rerender cart items with updated data
     renderCartItems()
+// Update Items Number in Cart
+calcItemsNum()
+// Update Subtotal Price 
+calcSubtotalPrice()
+
+
 }
 
 
